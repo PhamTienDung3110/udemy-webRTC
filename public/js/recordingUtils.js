@@ -1,4 +1,4 @@
-import { download } from "express/lib/response";
+import * as store from "./store.js";
 
 let mediaRecorder;
 
@@ -19,20 +19,31 @@ export const startRecording = () => {
 };
 
 export const pauseRecording = () => {
-    mediaRecorder.pause();
-}
+  mediaRecorder.pause();
+};
 
 export const resumeRecording = () => {
-    mediaRecorder.resume();
-}
+  mediaRecorder.resume();
+};
 
 export const stopRecording = () => {
-    mediaRecorder.stop();
-}
+  mediaRecorder.stop();
+};
 
 const downloadRecordedVideo = () => {
-    
-}
+  const blob = new Blob(recordedChucks, {
+    type: "video/webm",
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  document.body.appendChild(a);
+  a.style = 'display:none;';
+  a.href = url;
+  a.download = 'recording.webm';
+  a.click();
+  window.URL.revokeObjectURL(url);
+};
 
 const handleDataAvailable = (event) => {
   if (event.data.size > 0) {

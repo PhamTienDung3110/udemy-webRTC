@@ -160,8 +160,29 @@ export const appendMessage = (message, right = false) => {
 
 export const clearMessage = () => {
   const messagesContainer = document.getElementById("messages_container");
-  messagesContainer.querySelectorAll('*').forEach((n) => n.remove());
-}
+  messagesContainer.querySelectorAll("*").forEach((n) => n.remove());
+};
+
+// recording
+export const showRecordingPanel = () => {
+  const recordingButtons = document.getElementById("video_recording_buttons");
+  showElement(recordingButtons);
+
+  // hide start recording button if it is active
+  const startRecordingButton = document.getElementById(
+    "start_recording_button"
+  );
+  hideElement(startRecordingButton);
+};
+
+export const resetRecordingButtons = () => {
+  const startRecordingButton = document.getElementById(
+    "start_recording_button"
+  );
+  const recordingButtons = document.getElementById("video_recording_buttons");
+  hideElement(recordingButtons);
+  showElement(startRecordingButton);
+};
 
 const enableDashboard = () => {
   const dashboardBlocker = document.getElementById("dashboard_blur");
