@@ -4,7 +4,7 @@ let mediaRecorder;
 
 const vp9Codec = "video/webm; codecs=vp=9";
 const vp9Options = { mimeType: vp9Codec };
-const recordedChucks = [];
+const recordedChunks = [];
 
 export const startRecording = () => {
   const remoteStream = store.getState().remoteStream;
@@ -31,7 +31,7 @@ export const stopRecording = () => {
 };
 
 const downloadRecordedVideo = () => {
-  const blob = new Blob(recordedChucks, {
+  const blob = new Blob(recordedChunks, {
     type: "video/webm",
   });
 
@@ -47,7 +47,7 @@ const downloadRecordedVideo = () => {
 
 const handleDataAvailable = (event) => {
   if (event.data.size > 0) {
-    recordedChucks.push(event.data);
+    recordedChunks.push(event.data);
     downloadRecordedVideo();
   }
 };

@@ -4,6 +4,7 @@ import * as webRTCHandler from "./webRTCHandler.js";
 import * as constants from "./constants.js";
 import * as ui from "./ui.js";
 import * as recordingUtils from "./recordingUtils.js";
+import * as strangerUtils from "./strangerUtils.js";
 
 // initialization of socketIO connection
 const socket = io("/");
@@ -50,6 +51,27 @@ personalCodeVideoButton.addEventListener("click", () => {
   const callType = constants.callType.VIDEO_PERSONAL_CODE;
 
   webRTCHandler.sendPreOffer(callType, calleePersonalCode);
+});
+
+const strangerChatButton = document.getElementById("stranger_chat_button");
+strangerChatButton.addEventListener("click", () => {
+  strangerUtils.getStrangerSocketIdAndConnect(constants.callType.CHAT_STRANGER);
+});
+
+const strangerVideoButton = document.getElementById("stranger_video_button");
+strangerVideoButton.addEventListener("click", () => {
+  strangerUtils.getStrangerSocketIdAndConnect(
+    constants.callType.VIDEO_STRANGER
+  );
+});
+
+// register event for allow connections from strangers
+const checkbox = document.getElementById("allow_strangers_checkbox");
+checkbox.addEventListener("click", () => {
+  const checkboxState = store.getState().allowConnectionsFromStrangers;
+  ui.updateStrangerCheckbox(!checkboxState);
+  store.setAllowConnectionsFromStrangers(!checkboxState);
+  strangerUtils.changeStrangerConnectionStatus(!checkboxState);
 });
 
 // event listeners for video call buttons
@@ -101,13 +123,39 @@ sendMessageButton.addEventListener("click", () => {
 });
 
 const startRecordingButton = document.getElementById("start_recording_button");
-startRecordingButton.addEventListener("click", ()=> {
+startRecordingButton.addEventListener("click", () => {
   recordingUtils.startRecording();
   ui.showRecordingPanel();
-})
+});
 
 const stopRecordingButton = document.getElementById("stop_recording_button");
 stopRecordingButton.addEventListener("click", () => {
   recordingUtils.stopRecording();
   ui.resetRecordingButtons();
-})
+});
+
+const pauseRecordingButton = document.getElementById("pause_recording_button");
+pauseRecordingButton.addEventListener("click", () => {
+  recordingUtils.pauseRecording();
+  ui.switchRecordingButtons(true);
+});
+
+const resumeRecordingButton = document.getElementById(
+  "resume_recording_button"
+);
+resumeRecordingButton.addEventListener("click", () => {
+  recordingUtils.resumeRecording();
+  ui.switchRecordingButtons();
+});
+
+// hang up
+
+const hangUpButton = document.getElementById("hang_up_button");
+hangUpButton.addEventListener("click", () => {
+  webRTCHandler.handleHangUp();
+});
+
+const hangUpChatButton = document.getElementById("finish_chat_call_button");
+hangUpChatButton.addEventListener("click", () => {
+  webRTCHandler.handleHangUp();
+});

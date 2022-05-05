@@ -51,7 +51,7 @@
                   class="connecting_buttons_image"
                 />
               </button>
-              <button class="connecting_button" id="personal_code_video_button">
+              <button class="connecting_button display_none" id="personal_code_video_button">
                 <img
                   src="./utils/images/videoButton.png"
                   class="connecting_buttons_image"
@@ -68,7 +68,7 @@
                   class="connecting_buttons_image"
                 />
               </button>
-              <button class="connecting_button" id="stranger_video_button">
+              <button class="connecting_button display_none" id="stranger_video_button">
                 <img
                   src="./utils/images/videoButton.png"
                   class="connecting_buttons_image"
@@ -164,13 +164,14 @@
       <div id="dialog"></div>
     </div>
     <script src="./socket.io/socket.io.js"></script>
-    <script src="./js/recordingUtils.js"></script>
+    <script type="module" src="./js/recordingUtils.js"></script>
     <script type="module" src="./js/elements.js"></script>
     <script type="module" src="./js/constants.js"></script>
     <script type="module" src="./js/ui.js"></script>
     <script type="module" src="./js/wss.js"></script>
     <script type="module" src="./js/store.js"></script>
-    <script type="module" src="./js/webRTCHandler.js"></script>
     <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/strangerUtils.js"></script>
+    <script type="module" src="./js/webRTCHandler.js"></script>
   </body>
 </html>
