@@ -106,6 +106,16 @@ body {
   align-items: center;
 }
 
+.personal_code_value_container button {
+  margin: 0 10px;
+}
+
+.personal_code_value_container p {
+  overflow-wrap: break-word;
+  max-width: 100%;
+
+}
+
 .personal_code_value_paragraph {
   font-size: 18px;
   font-weight: 700;
